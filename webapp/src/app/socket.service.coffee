@@ -10,6 +10,7 @@ angular.module 'App'
       this.socket.on('masterIncoming', (data) ->
         $rootScope.$broadcast('masterIncoming', data)
       )
+      this.unsubscribe('abc')
       this.subscribe('abc')
     subscribe: (room) ->
       this.room = room

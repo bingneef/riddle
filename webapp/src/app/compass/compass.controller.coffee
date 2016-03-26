@@ -1,5 +1,5 @@
 angular.module 'App'
-  .controller 'CompassController', ($rootScope, $scope, $timeout, SocketService) ->
+  .controller 'CompassController', ($rootScope, $scope, $timeout, SocketService, SweetAlert) ->
     'ngInject'
 
     sequence = [0, 180, 90, 270]
@@ -16,7 +16,14 @@ angular.module 'App'
       }
       SocketService.masterTransmit(payload)
 
-    $scope.start()
+
+    SweetAlert.swal({
+      title: "Start level!"
+      text: "Make sure your phone is on!"
+      type:"info"}
+      , ->
+        $scope.start()
+      )
 
 
     $scope.sendStatus = (status) ->
@@ -60,8 +67,13 @@ angular.module 'App'
         $scope.sendStatus('error')
 
       if sequenceStep == sequence.length
-        $rootScope.nextLevel()
+        SweetAlert.swal({
+          title: "Good job!"
+          text: "You finished the level!"
+          type:"success"}
+          , ->
+            $rootScope.nextLevel()
+          )
 
-    console.log 'compass'
 
     return

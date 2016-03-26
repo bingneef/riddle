@@ -14,6 +14,10 @@ angular.module 'App'
         key: 'compass'
         name: 'Compass'
       }
+      {
+        key: 'winner'
+        name: 'Winner'
+      }
     ]
 
     $rootScope.currentLevel = 0

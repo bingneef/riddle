@@ -1,5 +1,5 @@
 angular.module 'App'
-  .controller 'CompassSlaveController', ($rootScope, $scope, $state, $window, $timeout, SocketService) ->
+  .controller 'CompassSlaveController', ($rootScope, $scope, $state, $window, $timeout, SocketService, SweetAlert) ->
     'ngInject'
 
     $scope.status = {}
@@ -33,10 +33,6 @@ angular.module 'App'
         $scope.status.color = undefined
       , 1000
       $scope.$apply()
-
-    $scope.goFullScreen = ($event) ->
-      $scope.isFullScreen = true
-      document.getElementById("control").webkitRequestFullscreen()
 
     $window.ondeviceorientation = (event) ->
       $scope.orientation = event.alpha
