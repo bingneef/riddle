@@ -1,5 +1,5 @@
-<div id="compass-slave">
-  {{orientation}}
+<div id="compass-slave" data-ng-click="compassClick()">
+  <img src="assets/images/arrow.svg" data-ng-style="arrowStyle()" />
   <div class="colors">
     <div class="color-item" data-ng-class="status.color"></div>
   </div>
