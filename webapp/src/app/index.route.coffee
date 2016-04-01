@@ -18,6 +18,13 @@ angular.module 'App'
             templateUrl: 'app/haiku/haiku_slave.html'
             controller: 'HaikuSlaveController'
             controllerAs: 'haiku_slave'
+      .state 'slave.numbers',
+        url: '/slave/numbers'
+        views:
+          '@':
+            templateUrl: 'app/numbers/numbers_slave.html'
+            controller: 'NumbersSlaveController'
+            controllerAs: 'numbers_slave'
 
       .state 'app',
         abstract: true
@@ -39,5 +46,12 @@ angular.module 'App'
             templateUrl: 'app/haiku/haiku.html'
             controller: 'HaikuController'
             controllerAs: 'haiku'
+      .state 'app.numbers',
+        url: '/numbers'
+        views:
+          '@':
+            templateUrl: 'app/numbers/numbers.html'
+            controller: 'NumbersController'
+            controllerAs: 'numbers'
 
-    $urlRouterProvider.otherwise '/compass'
+    $urlRouterProvider.otherwise '/numbers'

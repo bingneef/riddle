@@ -1,12 +1,10 @@
 angular.module 'App'
-  .controller 'CompassController', ($rootScope, $scope, $timeout, SocketService) ->
+  .controller 'CompassController', ($rootScope, $scope, $state, $window, $timeout, $interval, SocketService, SweetAlert) ->
     'ngInject'
 
-    sequence = [0, 180, 90, 270]
-    sequenceMargin = 15
-    sequenceStep = 0
-
+    $scope.status = {}
     activeLevel = 'compass'
+    $scope.code = ''
 
     $scope.start = ->
       payload = {
@@ -18,50 +16,61 @@ angular.module 'App'
 
     $scope.start()
 
-
-    $scope.sendStatus = (status) ->
-      payload = {
-        level: activeLevel
-        kind: 'status'
-        status: status
-      }
-      SocketService.masterTransmit(payload)
-
-    $scope.requestOrientation = ->
-      payload = {
-        level: activeLevel
-        kind: 'requestOrientation'
-      }
-      SocketService.masterTransmit(payload)
-
-
+    $scope.angles = [45, 225, 135, 315]
+    $scope.correctAngles = 0
+    currentAngleStep = 0
+    angleOffset = 22.5
 
     $rootScope.$on('slaveIncoming', (event, data) ->
-      switch data.kind
-        when 'orientation'
-          checkOrientatation(data.state)
+      if data.kind == 'level'
+        $state.go('slave.' + data.value)
+        return
 
+      return unless data.level == activeLevel
+      switch data.kind
+        when 'arrowClick'
+          checkAngle(data.angle)
     )
 
-    checkOrientatation = (state) ->
-      correctOrientation = false
-      switch sequence[sequenceStep]
-        when 0
-          if state > 345 || state < 15
-            correctOrientation = true
-        else
-          if state > sequence[sequenceStep] - sequenceMargin && state < sequence[sequenceStep] + sequenceMargin
-            correctOrientation = true
+    $scope.$watch 'code', (newValue, oldValue) ->
+      return if oldValue.length >= newValue.length || newValue.length == 0
 
-      if correctOrientation
-        $scope.sendStatus('success')
-        sequenceStep++
+      solution = 'nsew'
+      status = 'error'
+
+      if solution.indexOf($scope.code.toLowerCase()) == 0
+        status = 'success'
+        if $scope.code.toLowerCase() == solution
+          alert("succes")
+
+      SocketService.masterTransmit({level: activeLevel, kind: 'status', value: status})
+
+    $interval ->
+      currentAngleStep++
+      if currentAngleStep >= $scope.angles.length then currentAngleStep = 0
+    , 2000
+
+
+    $scope.arrowStyle = ->
+      {
+        'transform': 'rotate(' + $scope.angles[currentAngleStep] + 'deg)'
+      }
+
+    checkAngle = (angle) ->
+      status = 'error'
+      console.log $scope.angles[$scope.correctAngles] - angleOffset, $scope.angles[$scope.correctAngles] + angleOffset
+      if angle > $scope.angles[$scope.correctAngles] - angleOffset && angle < $scope.angles[$scope.correctAngles] + angleOffset
+        status = 'success'
+        $scope.correctAngles++
+
+        if $scope.correctAngles > $scope.angles.length - 1
+          console.log 'level done'
       else
-        $scope.sendStatus('error')
+        status = 'error'
+        $scope.correctAngles = 0
 
-      if sequenceStep == sequence.length
-        $rootScope.nextLevel()
+      SocketService.masterTransmit({level: activeLevel, kind: 'status', value: status})
 
-    console.log 'compass'
 
     return
+

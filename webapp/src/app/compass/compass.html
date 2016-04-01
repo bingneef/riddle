@@ -1,7 +1,7 @@
 <div id="compass">
-  <button data-ng-click="sendStatus('success')">Send success</button>
-  <button data-ng-click="sendStatus('warning')">Send warning</button>
-  <button data-ng-click="sendStatus('error')">Send error</button>
-
-  <button data-ng-click="requestOrientation()">Request orientation</button>
+  <img src="assets/images/arrow.svg" data-ng-style="arrowStyle()" class="no-custom-orientation" />
+  <div class="colors">
+    <div class="color-item" data-ng-class="status.color"></div>
+  </div>
+  <div data-keypad></div>
 </div>

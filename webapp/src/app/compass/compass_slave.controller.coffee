@@ -1,11 +1,19 @@
 angular.module 'App'
-  .controller 'CompassSlaveController', ($rootScope, $scope, $state, $window, $timeout, SocketService) ->
+  .controller 'CompassSlaveController', ($rootScope, $scope, $state, $window, $timeout, $interval, SocketService, SweetAlert) ->
     'ngInject'
 
     $scope.status = {}
-    $scope.isFullScreen = false
-
     activeLevel = 'compass'
+
+    $scope.arrowStyle = ->
+      {
+        'transform': 'rotate(' + $scope.displayOrientation + 'deg)'
+      }
+
+    $scope.$watch('orientation', (newValue, oldValue) ->
+      if Math.abs(newValue - oldValue) > 1 || !oldValue?
+        $scope.displayOrientation = newValue
+    )
 
     $rootScope.$on('masterIncoming', (event, data) ->
       if data.kind == 'level'
@@ -15,28 +23,19 @@ angular.module 'App'
       return unless data.level == activeLevel
 
       switch data.kind
-        when 'level'
-          $state.go('slave.' + data.value)
         when 'status'
-          paintBackground(data.status)
-        when 'requestOrientation'
-          payload = {
-            kind: 'orientation'
-            state: $scope.orientation
-          }
-          SocketService.slaveTransmit(payload)
+          paintBackground(data.value)
     )
+
+    $scope.compassClick = ->
+      SocketService.slaveTransmit({level: activeLevel, kind: 'arrowClick', angle: $scope.displayOrientation})
 
     paintBackground = (status) ->
       $scope.status.color = status
-      $timeout ->
+      $timeout.cancel(timeout) if timeout?
+      timeout = $timeout ->
         $scope.status.color = undefined
       , 1000
-      $scope.$apply()
-
-    $scope.goFullScreen = ($event) ->
-      $scope.isFullScreen = true
-      document.getElementById("control").webkitRequestFullscreen()
 
     $window.ondeviceorientation = (event) ->
       $scope.orientation = event.alpha

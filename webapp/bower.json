@@ -11,7 +11,8 @@
     "angular-bootstrap": "1.1.1",
     "font-awesome": "latest",
     "jquery": "^2.2.2",
-    "socket.io-client": "latest"
+    "socket.io-client": "latest",
+    "angular-sweetalert": "latest"
   },
   "devDependencies": {
     "angular-mocks": "~1.4.2"
