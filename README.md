@@ -12,4 +12,4 @@ At this point you can browse to http://localhost:3000 to view the webapplication
 Uses Gulp, Coffeescript, Sass, NODE, websockets and Angular
 
 ## Database
-No datebase
+No database
