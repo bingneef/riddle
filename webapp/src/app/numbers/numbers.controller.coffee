@@ -4,7 +4,7 @@ angular.module 'App'
 
     $scope.status = {}
     activeLevel = 'numbers'
-    $scope.answerCode = 'iloveyou'
+    $scope.answerCode = 'fibonacci'
     $scope.correctTiles = false
     $scope.userInputCode = ''
 
@@ -30,8 +30,8 @@ angular.module 'App'
     $scope.start()
 
     $scope.answerTotal =
-      sum: 4181
-      count: 8
+      sum: 10946
+      count: 9
 
     $rootScope.$on('slaveIncoming', (event, data) ->
       if data.kind == 'level'
