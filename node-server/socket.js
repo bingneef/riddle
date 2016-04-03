@@ -16,6 +16,10 @@ module.exports = {
         io.sockets.in(room).emit('opponentDisconnected')
       })
 
+      socket.on('transmit', function(data) {
+        socket.broadcast.to(data.room).emit(data.transmitKind, data);
+      });
+
       socket.on('slaveTransmit', function(data) {
         socket.broadcast.to(data.room).emit('slaveIncoming', data);
       });
@@ -30,5 +34,8 @@ module.exports = {
         console.log('user disconnected');
       });
     });
+  },
+  transmit: function(data) {
+    this.io.sockets.emit(data.transmitKind, data);
   }
 }
