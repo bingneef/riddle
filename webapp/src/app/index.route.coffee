@@ -26,12 +26,30 @@ angular.module 'App'
             controller: 'NumbersSlaveController'
             controllerAs: 'numbers_slave'
 
+      .state 'fs',
+        abstract: true
+
+      .state 'fs.login',
+        url: '/login'
+        views:
+          '@':
+            templateUrl: 'app/login/login.html'
+            controller: 'LoginController'
+            controllerAs: 'login'
+
       .state 'app',
         abstract: true
         views:
           'navigation':
             controller: 'NavigationController'
             templateUrl: 'app/navigation/navigation.html'
+      .state 'app.dashboard',
+        url: '/dashboard'
+        views:
+          '@':
+            templateUrl: 'app/dashboard/dashboard.html'
+            controller: 'DashboardController'
+            controllerAs: 'dashboard'
       .state 'app.compass',
         url: '/compass'
         views:
@@ -54,4 +72,4 @@ angular.module 'App'
             controller: 'NumbersController'
             controllerAs: 'numbers'
 
-    $urlRouterProvider.otherwise '/numbers'
+    $urlRouterProvider.otherwise '/dashboard'

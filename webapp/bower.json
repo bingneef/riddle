@@ -2,7 +2,6 @@
   "name": "App",
   "version": "0.0.0",
   "dependencies": {
-    "angular-cookies": "~1.4.2",
     "angular-resource": "~1.4.2",
     "angular-ui-router": "~0.2.15",
     "animate.css": "~3.4.0",
@@ -12,7 +11,9 @@
     "font-awesome": "latest",
     "jquery": "^2.2.2",
     "socket.io-client": "latest",
-    "angular-sweetalert": "latest"
+    "angular-sweetalert": "latest",
+    "angular-local-storage": "0.1.4"
+
   },
   "devDependencies": {
     "angular-mocks": "~1.4.2"

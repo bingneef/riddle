@@ -24,9 +24,6 @@ Rails.application.configure do
   # Apache or NGINX already handles this.
   config.serve_static_files = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
-  # Enable deflate / gzip compression of controller-generated responses
-  config.middleware.use Rack::Deflater
-
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
   # config.assets.css_compressor = :sass
@@ -42,7 +39,7 @@ Rails.application.configure do
 
   # Specifies the header that your server uses for sending files.
   # config.action_dispatch.x_sendfile_header = 'X-Sendfile' # for Apache
-  config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
+  # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
@@ -57,9 +54,6 @@ Rails.application.configure do
   # Use a different logger for distributed setups.
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
 
-  # Log to environment log file, keep 7, max size 100mb
-  config.logger = ActiveSupport::TaggedLogging.new(Logger.new(Rails.root.join('log', Rails.env + '.log'), 7, 104_857_600))
-
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
 
@@ -69,20 +63,6 @@ Rails.application.configure do
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
-  # Email settings example
-  # config.action_mailer.asset_host = 'https://your-domain.tld'
-  # config.action_mailer.default_url_options = { host: 'your-domain.tld', protocol: 'https' }
-  # config.action_mailer.delivery_method = :smtp
-  # config.action_mailer.smtp_settings = {
-  #   address:                'smtp.gmail.com',
-  #   port:                   '587',
-  #   domain:                 'your-domain.tld',
-  #   authentication:         'plain',
-  #   enable_starttls_auto:   true,
-  #   user_name:              ENV.fetch('SMTP_USERNAME'),
-  #   password:               ENV.fetch('SMTP_PASSWORD')
-  # }
-
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).

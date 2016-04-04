@@ -4,7 +4,8 @@ var socket = require('./socket.js');
 
 /* GET home page. */
 router.post('/transmit', function(req, res, next) {
-  socket.transmit(data);
+  console.log('transmit');
+  socket.transmit(req.body);
   res.statusCode = 200;
   res.send('ok');
 });

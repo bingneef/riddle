@@ -1,19 +1,30 @@
 class User < ActiveRecord::Base
+
   authenticates_with_sorcery!
 
-  validates :email, presence: true, uniqueness: true, email: true
-  validates :password, length: { minimum: 3 }, if: :password_update?
-  validates :password, confirmation: true
-  validates :password_confirmation, presence: true, if: :password_update?
+  def generate_auth_token
+    if Rails.env.development? && email.include?('gmail.com')
+      return self.auth_token = 'testtest'
+    end
+    if Rails.env.development? && email.include?('sping.nl')
+      return self.auth_token = 'spingsping'
+    end
+    self.auth_token = generate_unique_token
+  end
 
-  # FIXME
-  def admin?
-    true
+  def logout!
+    update(auth_token: nil)
   end
 
   private
 
   def password_update?
-    password.present? || new_record?
+    password.present?
+  end
+
+  def generate_unique_token
+    token = SecureRandom.uuid.delete('-')
+    token = generate_unique_token if User.exists?(auth_token: token)
+    token
   end
 end

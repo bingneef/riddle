@@ -1,5 +1,5 @@
 angular.module 'App'
-  .controller 'HaikuController', ($rootScope, $scope, $timeout, SocketService) ->
+  .controller 'HaikuController', ($rootScope, $scope, $timeout, Resources, SocketService) ->
     'ngInject'
 
     activeLevel = 'haiku'

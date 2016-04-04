@@ -1,28 +1,9 @@
 angular.module 'App'
-  .run ($log, $rootScope, $state, $timeout, SocketService) ->
+  .run ($rootScope, $log, LoginService) ->
     'ngInject'
     $log.debug 'runBlock end'
 
-    SocketService.initiate()
-
-    $rootScope.levels = [
-      {
-        key: 'haiku'
-        name: 'Haiku'
-      }
-      {
-        key: 'compass'
-        name: 'Compass'
-      }
-      {
-        key: 'winner'
-        name: 'Winner'
-      }
-    ]
-
-    $rootScope.currentLevel = 0
+    $rootScope.$on '$stateChangeStart', () ->
+      LoginService.authenticate()
 
 
-    $rootScope.nextLevel = ->
-      $rootScope.currentLevel += 1
-      $state.go('app.' + $rootScope.levels[$rootScope.currentLevel].key)

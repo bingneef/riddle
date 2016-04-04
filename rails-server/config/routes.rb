@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
-  get 'login' => 'user_sessions#new', as: :login
-  post 'login' => 'user_sessions#create'
-  post 'logout' => 'user_sessions#destroy', as: :logout
-
-  root 'home#index'
+  namespace :api do
+    namespace :v1 do
+      post 'auth' => 'auth#create'
+      post 'logout' => 'auth#destroy'
+      get 'auth' => 'auth#index'
+    end
+    # final route to catch invalid urls
+    match '*path', to: 'base#not_found', via: :all
+  end
 end
