@@ -12,8 +12,9 @@
     "jquery": "^2.2.2",
     "socket.io-client": "latest",
     "angular-sweetalert": "latest",
-    "angular-local-storage": "0.1.4"
-
+    "angular-local-storage": "0.1.4",
+    "flexboxgrid": "^6.3.0",
+    "bulma": "^0.0.17"
   },
   "devDependencies": {
     "angular-mocks": "~1.4.2"

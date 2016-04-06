@@ -5,3 +5,6 @@
 */dist/*
 */tmp/*
 */log/*
+*/test/*
+*/bin/*
+*/.gitignore

@@ -5,9 +5,11 @@ angular.module 'App'
     socket: io.connect(socketUrl)
     initiate: (room) ->
       this.socket.on('slaveIncoming', (data) ->
+        console.log data
         $rootScope.$broadcast('slaveIncoming', data)
       )
       this.socket.on('masterIncoming', (data) ->
+        console.log data
         $rootScope.$broadcast('masterIncoming', data)
       )
       this.unsubscribe(room)
