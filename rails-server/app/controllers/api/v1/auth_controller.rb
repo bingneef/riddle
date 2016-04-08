@@ -4,12 +4,7 @@ require 'oauth2'
 module Api
   module V1
     class AuthController < Api::BaseController
-      skip_before_action :authenticate, only: [:login, :create, :google_auth]
-
-      def google_auth
-        puts params[:token]
-        render json: User.first
-      end
+      skip_before_action :authenticate, only: [:login, :create]
 
       def login
         user = User.find_by_email!(params[:email])

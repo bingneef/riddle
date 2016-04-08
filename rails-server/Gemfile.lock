@@ -168,7 +168,6 @@ DEPENDENCIES
   database_cleaner
   foreman
   jbuilder (~> 2.0)
-  oauth2
   pry-byebug
   puma
   rack-cors
@@ -176,7 +175,7 @@ DEPENDENCIES
   rails-api (= 0.4.0)
   rails-erd
   sdoc (~> 0.4.0)
-  sorcery
+  sorcery (= 0.9.1)
   sqlite3
 
 BUNDLED WITH

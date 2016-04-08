@@ -1,9 +1,15 @@
 class User < ActiveRecord::Base
+  authenticates_with_sorcery! do |config|
+    config.authentications_class = Authentication
+  end
+
+  has_many :authentications, :dependent => :destroy
+  accepts_nested_attributes_for :authentications
 
   authenticates_with_sorcery!
 
   def generate_auth_token
-    if Rails.env.development? && email.include?('gmail.com')
+    if Rails.env.development? && email.include?('bingsteup@gmail.com')
       return self.auth_token = 'testtest'
     end
     if Rails.env.development? && email.include?('sping.nl')
