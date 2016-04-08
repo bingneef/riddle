@@ -1,5 +1,26 @@
-<didv id="login">
-  <input type="text" data-ng-model="email" />
-  <input type="password" data-ng-model="password" />
-  <a class="btn" data-ng-click="loginUser()">login</a>
-</div>
+<section id="login" class="hero is-fullheight is-primary is-bold">
+  <div class="hero-content">
+    <div class="container">
+      <div class="column is-offset-3 is-6">
+        <p class="control">
+          <input class="row-item input" data-ng-model="email" type="text" placeholder="email">
+          <input class="row-item input" data-ng-model="password" type="password" placeholder="password">
+          <a class="row-item button" data-ng-click="loginUser()">
+            <strong data-ng-if="!loggingIn">Login</strong>
+            <i class="fa fa-refresh fa-spin" data-ng-if="loggingIn"></i>
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-footer">
+    <div class="container">
+      <div class="tabs is-centered">
+        <ul>
+          <li><a>Snowflake</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

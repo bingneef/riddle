@@ -1,11 +1,17 @@
 require 'net/http'
+require 'oauth2'
 
 module Api
   module V1
     class AuthController < Api::BaseController
-      skip_before_action :authenticate, only: :create
+      skip_before_action :authenticate, only: [:login, :create, :google_auth]
 
-      def create
+      def google_auth
+        puts params[:token]
+        render json: User.first
+      end
+
+      def login
         user = User.find_by_email!(params[:email])
         if user.valid_password?(params[:password])
           user.generate_auth_token
@@ -16,10 +22,8 @@ module Api
         end
       end
 
-      def index
-        require 'net/http'
-
-        uri = URI.parse("http://83.84.36.136:8000/transmit")
+      def socket_transmit
+        uri = URI.parse("http://83.84.36.136:8000/socketTransmit")
 
         # Full control
         http = Net::HTTP.new(uri.host, uri.port)
@@ -31,6 +35,11 @@ module Api
         else
           head 500
         end
+      end
+
+      def index
+
+        render json: current_user
       end
 
       def destroy

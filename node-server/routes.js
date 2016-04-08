@@ -3,7 +3,7 @@ var router = express.Router();
 var socket = require('./socket.js');
 
 /* GET home page. */
-router.post('/transmit', function(req, res, next) {
+router.post('/socketTransmit', function(req, res, next) {
   console.log('transmit');
   socket.transmit(req.body);
   res.statusCode = 200;

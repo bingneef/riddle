@@ -1,1 +1,1 @@
-angular.module 'App', ['LocalStorageModule', 'ngResource', 'ui.router', 'ui.bootstrap', 'oitozero.ngSweetAlert']
+angular.module 'App', ['LocalStorageModule', 'ngResource', 'ui.router', 'ui.bootstrap', 'oitozero.ngSweetAlert', 'satellizer']

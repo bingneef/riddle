@@ -25,6 +25,13 @@ angular.module 'App'
             templateUrl: 'app/numbers/numbers_slave.html'
             controller: 'NumbersSlaveController'
             controllerAs: 'numbers_slave'
+      .state 'slave.dashboard',
+        url: '/slave/dashboard'
+        views:
+          '@':
+            templateUrl: 'app/dashboard/dashboard-slave.html'
+            controller: 'DashboardSlaveController'
+            controllerAs: 'dashboardSlave'
 
       .state 'fs',
         abstract: true

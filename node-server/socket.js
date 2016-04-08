@@ -4,7 +4,6 @@ module.exports = {
   setupSockets: function(io) {
     this.io = io;
     io.on('connection',function(socket){
-      var socketId = socket.id;
 
       socket.on('subscribe', function(room) {
         socket.join(room);
@@ -16,8 +15,9 @@ module.exports = {
         io.sockets.in(room).emit('opponentDisconnected')
       })
 
-      socket.on('transmit', function(data) {
-        socket.broadcast.to(data.room).emit(data.transmitKind, data);
+      socket.on('socketTransmit', function(data) {
+        console.log('transmit', data);
+        socket.broadcast.to(data.room).emit('socketTransmit', data);
       });
 
       socket.on('slaveTransmit', function(data) {
@@ -36,6 +36,6 @@ module.exports = {
     });
   },
   transmit: function(data) {
-    this.io.sockets.emit(data.transmitKind, data);
+    this.io.sockets.emit('socketTransmit', data);
   }
 }

@@ -10,9 +10,10 @@
   padding: 0.2em 0;
 }
 
+@import 'shared/stylesheets/vars.sass';
 @import 'vendor/stylesheets/bootstrap';
-@import 'shared/vars.sass';
-@import 'shared/mixins.sass';
+@import 'vendor/stylesheets/bulma';
+@import 'shared/stylesheets/mixins.sass';
 
 /* Do not remove the comments below. It's the markers used by gulp-inject to inject
    all your sass files automatically */

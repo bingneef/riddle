@@ -4,35 +4,17 @@ angular.module 'App'
 
     activeLevel = 'haiku'
 
-    $scope.start = ->
-      payload = {
-        level: activeLevel
-        kind: 'level'
-        value: activeLevel
-      }
-      SocketService.masterTransmit(payload)
+    $scope.$on 'socketTransmit', (evt, data) ->
+      console.log evt, data
 
-    $scope.start()
+    payload = {
+      destination: 'slave'
+      level: activeLevel
+      kind: 'status'
+      status: status
+    }
 
-    $scope.answer = ''
-
-    $scope.checkAnswer = ->
-      if $scope.answer.toLowerCase().trim() == 'lisanne'
-        sendStatus('success')
-        $timeout ->
-          $rootScope.nextLevel()
-        , 1000
-      else
-        sendStatus('error')
-
-    sendStatus = (status) ->
-      payload = {
-        level: activeLevel
-        kind: 'status'
-        status: status
-      }
-
-      SocketService.masterTransmit(payload)
+    SocketService.socketTransmit(payload)
 
 
 

@@ -1,28 +1,40 @@
-ul.nav
-  li
-    a.active
-      background: #374354
-    a
-      &:hover
-        cursor: pointer
+#navigation
+  position: absolute
+  left: 0
+  right: 0
+  padding: 12px
 
-  li.dropdown
-    ul
-      display: none
-      position: absolute
+#overlay-navigation
 
-    &.open
-      position: relative
-      ul
-        display: block
-        list-style: none
+  position: absolute
+  left: 0
+  right: 0
+  bottom: 0
+  top: 0
+  color: white
+  z-index: 1000000
 
-        li
-          padding: 0 12px
-          background: #374A5E
+  .hero
+    background: #285882
 
-          &:hover
-            background: #374354
+  a
+    display: block
+    padding: 12px 0
+    color: white
 
-          a
-            color: white
+    span
+      color: white
+
+
+    &:hover
+      border: none
+      span
+        border-bottom: 1px solid white
+
+  .close-nav
+    font-size: 21px
+    padding: 12px
+
+
+
+

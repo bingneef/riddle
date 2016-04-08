@@ -5,12 +5,12 @@ angular.module 'App'
     base_url = "#{serverUrl}api/v1"
     $resource base_url, { format: 'json' },
 
-      'getAuth':
-        method: 'GET'
-        url: base_url + "/auth"
+      'login':
+        method: 'POST'
+        url: base_url + "/login"
 
       'authenticate':
-        method: 'POST'
+        method: 'GET'
         url: base_url + "/auth"
 
       'logout':
