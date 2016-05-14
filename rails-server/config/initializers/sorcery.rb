@@ -76,10 +76,20 @@ Rails.application.config.sorcery.configure do |config|
   # What providers are supported by this app, i.e. [:twitter, :facebook, :github, :linkedin, :xing, :google, :liveid, :salesforce] .
   # Default: `[]`
   #
-  config.external_providers = [:google]
-  config.google.key = '461046162325-039to168l5t08rbj3c58e5k3o5u5j982.apps.googleusercontent.com'
-  config.google.secret = '9N2pJkYnTSDRTHuKJKN_lzqv'
+  config.external_providers = [:google, :facebook]
+  config.google.key = '856409384233-qc71plh2ghd67boib516ud2ia6jp68b6.apps.googleusercontent.com'
+  config.google.secret = 'W5twISea5ZJqloF85XLC0y5E'
+  config.google.callback_url = "http://localhost:5000/oauth/callback?provider=google"
   config.google.user_info_mapping = {:email => "email", :username => "name"}
+
+  config.facebook.key = "1707544686127506"
+  config.facebook.secret = "446b4dcf55ca227441479010deae7972"
+  config.facebook.callback_url = "http://localhost:5000/oauth/callback?provider=facebook"
+  config.facebook.user_info_mapping = {:email => "email"}
+  config.facebook.user_info_path = "me?fields=email,first_name,last_name"
+  config.facebook.access_permissions = ["email"]
+  config.facebook.display = "popup"
+  config.facebook.api_version = "v2.5"
 
 
   # You can change it by your local ca_file. i.e. '/etc/pki/tls/certs/ca-bundle.crt'
@@ -118,13 +128,7 @@ Rails.application.config.sorcery.configure do |config|
   # config.twitter.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=twitter"
   # config.twitter.user_info_mapping = {:email => "screen_name"}
   #
-  # config.facebook.key = ""
-  # config.facebook.secret = ""
-  # config.facebook.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=facebook"
-  # config.facebook.user_info_mapping = {:email => "name"}
-  # config.facebook.access_permissions = ["email", "publish_actions"]
-  # config.facebook.display = "page"
-  # config.facebook.api_version = "v2.2"
+
   #
   # config.github.key = ""
   # config.github.secret = ""

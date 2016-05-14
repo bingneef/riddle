@@ -4,13 +4,10 @@ angular.module 'App'
 
     socket: io.connect(socketUrl)
     initiate: (room) ->
+      console.log room
       this.socket.on('socketTransmit', (data) ->
         if angular.equals(data.destination, $rootScope.socketRole)
-          console.log 'in', data
-          $rootScope.$broadcast('socketTransmit', data)
-      )
-      this.socket.on('masterIncoming', (data) ->
-        $rootScope.$broadcast('masterIncoming', data)
+          $rootScope.$broadcast 'socketTransmit', data
       )
       this.unsubscribe(room)
       this.subscribe(room)

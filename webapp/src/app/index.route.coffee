@@ -25,6 +25,13 @@ angular.module 'App'
             templateUrl: 'app/numbers/numbers_slave.html'
             controller: 'NumbersSlaveController'
             controllerAs: 'numbers_slave'
+      .state 'slave.duckhunt',
+        url: '/slave/duckhunt'
+        views:
+          '@':
+            templateUrl: 'app/duckhunt/duckhunt_slave.html'
+            controller: 'DuckhuntSlaveController'
+            controllerAs: 'duckhunt_slave'
       .state 'slave.dashboard',
         url: '/slave/dashboard'
         views:
@@ -43,6 +50,14 @@ angular.module 'App'
             templateUrl: 'app/login/login.html'
             controller: 'LoginController'
             controllerAs: 'login'
+
+      .state 'fs.oauth2',
+        url: '/oauth2'
+        views:
+          '@':
+            templateUrl: 'app/login/oauth2.html'
+            controller: 'Oauth2Controller'
+            controllerAs: 'Oauth2'
 
       .state 'app',
         abstract: true
@@ -78,5 +93,12 @@ angular.module 'App'
             templateUrl: 'app/numbers/numbers.html'
             controller: 'NumbersController'
             controllerAs: 'numbers'
+      .state 'app.duckhunt',
+        url: '/duckhunt'
+        views:
+          '@':
+            templateUrl: 'app/duckhunt/duckhunt.html'
+            controller: 'DuckhuntController'
+            controllerAs: 'duckhunt'
 
     $urlRouterProvider.otherwise '/dashboard'

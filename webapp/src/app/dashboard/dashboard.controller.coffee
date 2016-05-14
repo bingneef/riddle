@@ -1,5 +1,5 @@
 angular.module 'App'
-  .controller 'DashboardController', ($rootScope, $scope, $state, $timeout, SocketService) ->
+  .controller 'DashboardController', ($rootScope, $location, $scope, $state, $timeout, SocketService) ->
     'ngInject'
 
     $scope.riddles = [
@@ -21,12 +21,12 @@ angular.module 'App'
         liked: false
       }
       {
-        url: 'haiku'
-        title: 'Haiku'
+        url: 'duckhunt'
+        title: 'Duckhunt'
         subtitle: "5-7-5"
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consectetur posuere dolor sed pharetra. Mauris nec iaculis lectus, non ullamcorper magna."
         date: "11:09 PM - 10 Jan 2016"
-        liked: true
+        liked: false
       }
     ]
 

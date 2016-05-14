@@ -1,16 +1,32 @@
 angular.module 'App'
-  .controller 'LoginController', ($rootScope, $scope, $auth, $location, LoginService, SocketService) ->
+  .controller 'LoginController', ($rootScope, $scope, $auth, $location, $state, LoginService, SocketService, localStorageService, $interval) ->
     'ngInject'
 
-    console.log 'here'
-
     $scope.googleOAuth = ->
-      $auth.authenticate('google').then( (data) ->
-        console.log data
-      ).catch( (data) ->
-        console.log data
-      )
+      localStorageService.remove('auth_token_state')
+      $auth.authenticate('google')
+      interval = $interval ->
+        if localStorageService.get('auth_token_state') == 'success'
+          localStorageService.remove('auth_token_state')
+          $state.go 'app.dashboard'
+        if localStorageService.get('auth_token_state') == 'failed'
+          localStorageService.remove('auth_token_state')
+          interval = null
+      , 10
 
+    $scope.facebookOAuth = ->
+      localStorageService.remove('auth_token_state')
+      $auth.authenticate('facebook').then (data) ->
+        console.log 'good', data
+      interval = $interval ->
+        if localStorageService.get('auth_token_state') == 'success'
+          localStorageService.remove('auth_token_state')
+          $state.go 'app.dashboard'
+        if localStorageService.get('auth_token_state') == 'failed'
+          localStorageService.remove('auth_token_state')
+          interval = null
+          console.log 'error'
+      , 10
 
     $scope.loginUser = ->
       $scope.loggingIn = true

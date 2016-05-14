@@ -1,3 +1,3 @@
 angular.module('App')
-  .constant 'socketUrl', 'http://83.84.36.136:8000/'
-  .constant 'serverUrl', 'http://83.84.36.136:5000/'
+  .constant 'socketUrl', 'http://5.157.85.46:8000/'
+  .constant 'serverUrl', 'http://localhost:5000/'

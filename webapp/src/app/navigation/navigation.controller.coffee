@@ -15,9 +15,6 @@ angular.module 'App'
 
     $scope.navigateTo = (navigationTarget) ->
       $state.go('app.' + navigationTarget)
-      $timeout(->
-        $scope.$apply()
-      , 0)
 
 
     return

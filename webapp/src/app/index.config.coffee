@@ -8,12 +8,18 @@ angular.module 'App'
     localStorageServiceProvider.setPrefix('Riddle')
 
     $authProvider.google({
-      clientId: '461046162325-039to168l5t08rbj3c58e5k3o5u5j982.apps.googleusercontent.com'
-      redirectUri: 'http://localhost:5000/oauth/callback'
+      clientId: '856409384233-qc71plh2ghd67boib516ud2ia6jp68b6.apps.googleusercontent.com'
+      redirectUri: 'http://localhost:5000/oauth/callback?provider=google'
       requiredUrlParams: ['scope']
       scope: ['profile', 'email']
-
     })
+
+    $authProvider.facebook({
+      clientId: '1707544686127506'
+      redirectUri: 'http://localhost:5000/oauth/callback?provider=facebook'
+    })
+
+
 
 
 

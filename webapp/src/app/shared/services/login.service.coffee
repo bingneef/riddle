@@ -1,20 +1,20 @@
 angular.module 'App'
-  .factory 'LoginService', ($rootScope, $http, $state, $q, $window, Resources, localStorageService, SocketService) ->
+  .factory 'LoginService', ($rootScope, $http, $state, $q, $window, $location, Resources, localStorageService, SocketService) ->
     'ngInject'
 
     persistAuthToken: (authToken) ->
       $http.defaults.headers.common["Authorization"] = "Token token=#{authToken}"
-      localStorageService.set('auth_token', authToken)
-      SocketService.initiate(authToken)
       Resources.authenticate (data) ->
-        console.log 'here'
-        # $window.close()
-        # $state.go('app.dashboard')
+        localStorageService.set('auth_token_state', 'success')
+        localStorageService.set('auth_token', authToken)
+        $window.close()
+      , (data) ->
+        localStorageService.set('auth_token_state', 'failed')
+        $window.close()
 
     login: (email, password) ->
       defer = $q.defer()
       Resources.login {"email": email, "password": password}, (data) ->
-        this.persistAuthToken(data.auth_token)
         $rootScope.currentUser = data
         $state.go('app.dashboard')
         defer.resolve(data)
@@ -29,11 +29,14 @@ angular.module 'App'
       $http.defaults.headers.common["Authorization"] = "Token token=#{token}"
       Resources.authenticate (data) ->
         $rootScope.currentUser = data
-      SocketService.initiate({room: token, role: $rootScope.socketRole})
+        SocketService.initiate({room: token, role: $rootScope.socketRole})
+        $state.go('app.dashboard') if $location.$$path.indexOf('/login') == 0
+      , (data) ->
+        console.log 'not authorized'
 
     logout: ->
-      localStorageService.remove('auth_token')
       Resources.logout (data) ->
+        localStorageService.remove('auth_token')
         $state.go('fs.login')
 
 

@@ -1,0 +1,8 @@
+<div id="duckhunt">
+  <!-- <canvas id="duckhunt-canvas" width="600px" height="600px"></canvas> -->
+  <div class="countdown" data-ng-if="!gameStarted">
+    {{countdown}}
+  </div>
+  <timer class="timer" autostart="false"></timer>
+  <div class="hits"><span data-ng-bind="hits"></span>/<span data-ng-bind="hitsForLevel"></span></div>
+</div>

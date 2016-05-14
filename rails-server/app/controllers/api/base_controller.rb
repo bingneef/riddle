@@ -1,4 +1,4 @@
-class Api::BaseController < ActionController::API
+class Api::BaseController < ApplicationController
   include ActionController::HttpAuthentication::Token::ControllerMethods
   include ActionController::StrongParameters
   include ActionController::ImplicitRender

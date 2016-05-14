@@ -1,5 +1,5 @@
 angular.module 'App'
-  .run ($rootScope, $log, LoginService) ->
+  .run ($rootScope, $log, LoginService, SocketService) ->
     'ngInject'
     $log.debug 'runBlock end'
 
@@ -9,6 +9,8 @@ angular.module 'App'
       else
         $rootScope.socketRole = 'host'
 
-      LoginService.authenticate()
+    SocketService.initiate({room: 'testtest'})
+
+    LoginService.authenticate() unless toState.name.indexOf('oauth2') > -1
 
 
